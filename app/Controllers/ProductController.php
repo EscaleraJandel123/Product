@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\ProductModel;
+use App\Models\CategoryModel;
 
 class ProductController extends BaseController
 {
@@ -10,7 +12,7 @@ class ProductController extends BaseController
 
     public function __construct()
     {
-        $this->product = new \App\Models\ProductModel();
+        $this->product = new ProductModel();
     }
 
     public function delete($id)
@@ -23,11 +25,11 @@ class ProductController extends BaseController
     {
         $data = [
             'product' => $this->product->findAll(),
-            'pro' => $this->product->where('id', $id)->first(),
+            'pro' => $this->product->find($id),
         ];
 
         if (!$data['pro']) {
-            echo 'ERORR';
+            echo 'ERROR';
         }
 
         return view('products', $data);
@@ -35,17 +37,19 @@ class ProductController extends BaseController
 
     public function save()
     {
-        $id = $_POST['id'];
+        $id = $this->request->getVar('id');
         $data = [
-            'code' => $this->request->getVar('code'),
-            'name' => $this->request->getVar('name'),
-            'quantity' => $this->request->getVar('quantity'),
+            'productName' => $this->request->getVar('productName'),
+            'productDescription' => $this->request->getVar('productDescription'),
+            'productCategory' => $this->request->getVar('productCategory'),
+            'productQuantity' => $this->request->getVar('productQuantity'),
+            'productPrice' => $this->request->getVar('productPrice'),
         ];
 
         if ($id != null) {
             $this->product->set($data)->where('id', $id)->update();
         } else {
-            $this->product->save($data);
+            $this->product->insert($data);
         }
         return redirect()->to('/product');
     }
@@ -55,14 +59,16 @@ class ProductController extends BaseController
         echo $product;
     }
 
-    public function chalsim()
-    {
-        $data['product'] = $this->product->findAll();
-        return view('products', $data);
-    }
-
     public function index()
-    {
-        //
-    }
+{
+    $productModel = new ProductModel(); // Create an instance of the ProductModel
+    $categoryModel = new CategoryModel(); // Create an instance of the CategoryModel
+
+    // Fetch products and distinct categories from their respective models
+    $data['product'] = $productModel->findAll();
+    $data['categories'] = $categoryModel->distinct('ProductCategory')->findColumn('ProductCategory');
+
+    return view('products', $data);
+}
+
 }

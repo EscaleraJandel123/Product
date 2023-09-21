@@ -12,27 +12,23 @@
             margin: 0;
             padding: 0;
         }
-
         header {
             background-color: #333;
             color: #fff;
             text-align: center;
             padding: 20px;
         }
-
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 20px auto;
             background-color: #fff;
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
-
         h1 {
             margin-top: 0;
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
@@ -64,8 +60,17 @@
             font-weight: bold;
         }
 
-        input[type="text"] {
-            width: 95%;
+        input[type="text"],
+        input[type="number"] {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+        select {
+            width: 93%;
+
             padding: 10px;
             margin-bottom: 10px;
             border: 1px solid #ddd;
@@ -99,18 +104,32 @@
     </header>
     <div class="container">
         <form action="/save" method="post">
-            <label for="code">Code:</label><br>
+            <label for="productName">Product Name:</label><br>
             <input type="hidden" name="id" value="<?= isset($pro['id']) ? $pro['id'] : '' ?>">
-            <input type="text" name="code" placeholder="Enter code"
-                value="<?= isset($pro['code']) ? $pro['code'] : '' ?>"><br>
+            <input type="text" name="productName" placeholder="Enter Product Name"
+                value="<?= isset($pro['productName']) ? $pro['productName'] : '' ?>"><br>
 
-            <label for="name">Name:</label><br>
-            <input type="text" name="name" placeholder="Enter name"
-                value="<?= isset($pro['name']) ? $pro['name'] : '' ?>"><br>
+            <label for="productDescription">Product Description:</label><br>
+            <input type="text" name="productDescription" placeholder="Enter Product Description"
+                value="<?= isset($pro['productDescription']) ? $pro['productDescription'] : '' ?>"><br>
 
-            <label for="quantity">Quantity:</label><br>
-            <input type="text" name="quantity" placeholder="Enter quantity"
-                value="<?= isset($pro['quantity']) ? $pro['quantity'] : '' ?>"><br>
+            <label for="productCategory">Product Category:</label><br>
+            <select name="productCategory">
+                <option value="">Select a category</option> 
+                <?php foreach ($categories as $category): ?>
+                    <option value="<?= $category ?>">
+                        <?= $category ?>
+                    </option>
+                <?php endforeach; ?>
+            </select><br>
+
+            <label for="productQuantity">Product Quantity:</label><br>
+            <input type="number" name="productQuantity" placeholder="Enter Product Quantity"
+                value="<?= isset($pro['productQuantity']) ? $pro['productQuantity'] : '' ?>"><br>
+
+            <label for="productPrice">Product Price:</label><br>
+            <input type="text" name="productPrice" placeholder="Enter Product Price"
+                value="<?= isset($pro['productPrice']) ? $pro['productPrice'] : '' ?>"><br>
 
             <input type="submit" value="Save">
         </form>
@@ -118,21 +137,29 @@
         <h2>Product Listing</h2>
         <table>
             <tr>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Quantity</th>
+                <th>Product Name</th>
+                <th>Product Description</th>
+                <th>Product Category</th>
+                <th>Product Quantity</th>
+                <th>Product Price</th>
                 <th>Action</th>
             </tr>
             <?php foreach ($product as $pr): ?>
                 <tr>
                     <td>
-                        <?= $pr['code'] ?>
+                        <?= $pr['productName'] ?>
                     </td>
                     <td>
-                        <?= $pr['name'] ?>
+                        <?= $pr['productDescription'] ?>
                     </td>
                     <td>
-                        <?= $pr['quantity'] ?>
+                        <?= $pr['productCategory'] ?>
+                    </td>
+                    <td>
+                        <?= $pr['productQuantity'] ?>
+                    </td>
+                    <td>
+                        <?= $pr['productPrice'] ?>
                     </td>
                     <td class="action-buttons">
                         <a href="/delete/<?= $pr['id'] ?>">Delete</a>
