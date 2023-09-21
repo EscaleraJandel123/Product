@@ -23,9 +23,14 @@ class ProductController extends BaseController
 
     public function edit($id)
     {
+        $productModel = new ProductModel(); // Create an instance of the ProductModel
+        $categoryModel = new CategoryModel(); // Create an instance of the CategoryModel
+
         $data = [
-            'product' => $this->product->findAll(),
-            'pro' => $this->product->find($id),
+            'product' => $productModel->findAll(),
+            'pro' => $productModel->find($id),
+            // Assuming you want to edit a product
+            'categories' => $categoryModel->distinct('ProductCategory')->findColumn('ProductCategory'),
         ];
 
         if (!$data['pro']) {
@@ -34,6 +39,7 @@ class ProductController extends BaseController
 
         return view('products', $data);
     }
+
 
     public function save()
     {
@@ -60,15 +66,15 @@ class ProductController extends BaseController
     }
 
     public function index()
-{
-    $productModel = new ProductModel(); // Create an instance of the ProductModel
-    $categoryModel = new CategoryModel(); // Create an instance of the CategoryModel
+    {
+        $productModel = new ProductModel(); // Create an instance of the ProductModel
+        $categoryModel = new CategoryModel(); // Create an instance of the CategoryModel
 
-    // Fetch products and distinct categories from their respective models
-    $data['product'] = $productModel->findAll();
-    $data['categories'] = $categoryModel->distinct('ProductCategory')->findColumn('ProductCategory');
+        // Fetch products and distinct categories from their respective models
+        $data['product'] = $productModel->findAll();
+        $data['categories'] = $categoryModel->distinct('ProductCategory')->findColumn('ProductCategory');
 
-    return view('products', $data);
-}
+        return view('products', $data);
+    }
 
 }
