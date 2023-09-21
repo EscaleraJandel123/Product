@@ -19,7 +19,7 @@
             padding: 20px;
         }
         .container {
-            max-width: 900px;
+            max-width: 1500px;
             margin: 20px auto;
             background-color: #fff;
             padding: 20px;
