@@ -62,14 +62,14 @@
 
         input[type="text"],
         input[type="number"] {
-            width: 90%;
+            width: 98%;
             padding: 10px;
             margin-bottom: 10px;
             border: 1px solid #ddd;
             border-radius: 3px;
         }
         select {
-            width: 93%;
+            width: 98%;
 
             padding: 10px;
             margin-bottom: 10px;
