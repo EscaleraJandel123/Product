@@ -12,12 +12,14 @@
             margin: 0;
             padding: 0;
         }
+
         header {
             background-color: #333;
             color: #fff;
             text-align: center;
             padding: 20px;
         }
+
         .container {
             max-width: 1500px;
             margin: 20px auto;
@@ -26,9 +28,11 @@
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
+
         h1 {
             margin-top: 0;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -68,6 +72,7 @@
             border: 1px solid #ddd;
             border-radius: 3px;
         }
+
         select {
             width: 98%;
 
@@ -90,11 +95,22 @@
             text-decoration: none;
             color: #333;
             margin-right: 10px;
+            background-color: ;
         }
-
-        .action-buttons {
+        .btn{
+            background-color: #4CAF50;
+            /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
             text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
         }
+        .red {background-color: #f44336;} /* Red */ 
     </style>
 </head>
 
@@ -115,7 +131,7 @@
 
             <label for="productCategory">Product Category:</label><br>
             <select name="productCategory">
-                <option value="">Select a category</option> 
+                <option value="">Select a category</option>
                 <?php foreach ($categories as $category): ?>
                     <option value="<?= $category ?>">
                         <?= $category ?>
@@ -133,41 +149,30 @@
 
             <input type="submit" value="Save">
         </form>
-
         <h2>Product Listing</h2>
-        <table>
-            <tr>
-                <th>Product Name</th>
-                <th>Product Description</th>
-                <th>Product Category</th>
-                <th>Product Quantity</th>
-                <th>Product Price</th>
-                <th>Action</th>
-            </tr>
-            <?php foreach ($product as $pr): ?>
-                <tr>
-                    <td>
-                        <?= $pr['productName'] ?>
-                    </td>
-                    <td>
-                        <?= $pr['productDescription'] ?>
-                    </td>
-                    <td>
-                        <?= $pr['productCategory'] ?>
-                    </td>
-                    <td>
-                        <?= $pr['productQuantity'] ?>
-                    </td>
-                    <td>
-                        <?= $pr['productPrice'] ?>
-                    </td>
-                    <td class="action-buttons">
-                        <a href="/delete/<?= $pr['id'] ?>">Delete</a>
-                        <a href="/edit/<?= $pr['id'] ?>">Edit</a>
-                    </td>
-                </tr>
-            <?php endforeach ?>
-        </table>
+        <?php foreach ($product as $pr): ?>
+            <ul>
+                <li><strong>Product Name:</strong>
+                    <?= $pr['productName'] ?>
+                </li>
+                <li><strong>Product Description:</strong>
+                    <?= $pr['productDescription'] ?>
+                </li>
+                <li><strong>Product Category:</strong>
+                    <?= $pr['productCategory'] ?>
+                </li>
+                <li><strong>Product Quantity:</strong>
+                    <?= $pr['productQuantity'] ?>
+                </li>
+                <li><strong>Product Price:</strong>
+                    <?= $pr['productPrice'] ?>
+                </li>
+                <a href="/delete/<?= $pr['id'] ?>" class="btn red">Delete</a>
+                <a href="/edit/<?= $pr['id'] ?>" class="btn green">Edit</a>
+
+            </ul>
+        <?php endforeach ?>
+
     </div>
 </body>
 
