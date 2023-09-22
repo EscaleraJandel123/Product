@@ -21,7 +21,7 @@
         }
 
         .container {
-            max-width: 1500px;
+            max-width: 800px;
             margin: 20px auto;
             background-color: #fff;
             padding: 20px;
@@ -66,7 +66,7 @@
 
         input[type="text"],
         input[type="number"] {
-            width: 98%;
+            width: 95%;
             padding: 10px;
             margin-bottom: 10px;
             border: 1px solid #ddd;
@@ -169,10 +169,8 @@
                 </li>
                 <a href="/delete/<?= $pr['id'] ?>" class="btn red">Delete</a>
                 <a href="/edit/<?= $pr['id'] ?>" class="btn green">Edit</a>
-
             </ul>
         <?php endforeach ?>
-
     </div>
 </body>
 
